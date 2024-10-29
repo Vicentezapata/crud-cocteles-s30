@@ -1,0 +1,7 @@
+{
+  "name": "crud-cocteles-t3-70",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
