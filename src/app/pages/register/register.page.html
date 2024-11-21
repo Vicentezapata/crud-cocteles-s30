@@ -1,0 +1,110 @@
+<ion-content [fullscreen]="true"> <!-- Establece que el contenido ocupe toda la pantalla -->
+  <ion-row> <!-- Crea una fila dentro del layout de la página -->
+    <ion-col size="12"> <!-- Crea una columna que ocupa todo el ancho (12 columnas) -->
+      <ion-card>
+        <!-- Imagen del logo -->
+        <img alt="Silhouette of mountains" src="../../../assets/imgs/register.png" />
+        
+        <!-- Cabecera del card con título y subtítulo -->
+        <ion-card-header>
+          <ion-card-title>Registrarme</ion-card-title> <!-- Título del card -->
+          <ion-card-subtitle>Ingresa tus credenciales para revisar tus cocteles</ion-card-subtitle> <!-- Subtítulo informativo -->
+        </ion-card-header>
+
+        <!-- Contenido del card donde se encuentra el formulario -->
+        <ion-card-content>
+          <!-- Formulario con validaciones usando 'ngForm' -->
+          <form #loginForm="ngForm">
+            
+            <!-- Campo de entrada para el nombre -->
+            <ion-input 
+              [(ngModel)]="firstName" 
+              name="firstName" 
+              label="Nombre" 
+              label-placement="floating" 
+              fill="outline" 
+              placeholder="Nombre" 
+              required>
+            </ion-input>
+            <br>
+            <!-- Campo de entrada para el apellido -->
+            <ion-input 
+              [(ngModel)]="lastName" 
+              name="lastName" 
+              label="Apellido" 
+              label-placement="floating" 
+              fill="outline" 
+              placeholder="Apellido" 
+              required>
+            </ion-input>
+            <br>
+            <!-- Campo de entrada para el correo electrónico -->
+            <ion-input 
+              [(ngModel)]="email" 
+              name="email" 
+              label="Correo" 
+              label-placement="floating" 
+              fill="outline" 
+              placeholder="Correo" 
+              required 
+              email>
+            </ion-input>
+            
+            <!-- Mensajes de error que se muestran si el campo de correo es inválido -->
+            <ion-text color="danger" *ngIf="loginForm.controls['email']?.invalid && loginForm.controls['email']?.touched">
+              <small *ngIf="loginForm.controls['email']?.hasError('required')">* El correo es obligatorio</small> <!-- Error si no se llena el campo -->
+              <small *ngIf="loginForm.controls['email']?.hasError('email')">* Formato de correo inválido</small> <!-- Error si el formato del correo es incorrecto -->
+            </ion-text>
+
+            <br>
+
+            <!-- Campo de entrada para la contraseña -->
+            <ion-input 
+              [(ngModel)]="password" 
+              name="password" 
+              label-placement="floating" 
+              fill="outline" 
+              type="password" 
+              label="Contraseña" 
+              required 
+              minlength="8">
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle> <!-- Permite mostrar u ocultar la contraseña -->
+            </ion-input>
+            
+            <!-- Mensajes de error que se muestran si el campo de contraseña es inválido -->
+            <ion-text color="danger" *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched">
+              <small *ngIf="loginForm.controls['password']?.hasError('required')">* La contraseña es obligatoria</small> <!-- Error si no se llena el campo -->
+              <small *ngIf="loginForm.controls['password']?.hasError('minlength')">* La contraseña debe tener al menos 8 caracteres</small> <!-- Error si la contraseña tiene menos de 8 caracteres -->
+            </ion-text>
+
+            <br>
+
+            <!-- Campo de entrada para repetir la contraseña -->
+            <ion-input 
+              [(ngModel)]="confirmPassword" 
+              name="confirmPassword" 
+              label-placement="floating" 
+              fill="outline" 
+              type="password" 
+              label="Repetir Contraseña" 
+              required 
+              minlength="8">
+              <ion-input-password-toggle slot="end"></ion-input-password-toggle> <!-- Permite mostrar u ocultar la contraseña -->
+            </ion-input>
+            
+            <!-- Mensajes de error si las contraseñas no coinciden -->
+            <ion-text color="danger" *ngIf="confirmPassword !== password && confirmPassword && loginForm.controls['confirmPassword']?.touched">
+              <small>Las contraseñas deben coincidir</small> <!-- Error si las contraseñas no coinciden -->
+            </ion-text>
+
+            <br>
+
+            <!-- Botón para enviar el formulario -->
+            <!-- El botón está deshabilitado si el formulario es inválido (loginForm.invalid) o si las contraseñas no coinciden -->
+            <ion-button expand="block" [disabled]="loginForm.invalid || confirmPassword !== password" (click)="goToLogin()">Registrarme</ion-button>
+          </form>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

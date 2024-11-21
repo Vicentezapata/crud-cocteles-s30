@@ -1,0 +1,82 @@
+<ion-content [fullscreen]="true" class="ion-padding ion-justify-content-center">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Agregar Cocteles</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <br>
+
+  <!-- CAPTURAR FOTO -->
+  <ion-card *ngIf="photo">
+    <ion-img [src]="photo"></ion-img>
+  </ion-card>
+
+  <ion-card *ngIf="location">
+    <ion-card-header>
+      <ion-card-title>Ubicación</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Latitud: {{location.latitude}}</p>
+      <p>Longitud: {{location.longitude}}</p>
+      <p>Dirección: {{address}}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botón para capturar foto y obtener ubicación -->
+  <ion-button expand="block" (click)="capturePhoto()">Tomar Foto y Obtener Ubicación</ion-button><br />
+
+  <!-- Formulario de ingreso de datos -->
+  <form #cocktailForm="ngForm" (ngSubmit)="onSubmit(cocktailForm)">
+    <ion-input 
+      label="Nombre coctel" 
+      label-placement="floating" 
+      fill="outline" 
+      placeholder="Nombre coctel" 
+      [(ngModel)]="cocktailName" 
+      name="cocktailName" 
+      required>
+    </ion-input>
+    <div *ngIf="cocktailName && cocktailName.length === 0" class="error-message">El nombre del cóctel es obligatorio.</div><br>
+
+    <ion-input 
+      label="Autor coctel" 
+      label-placement="floating" 
+      fill="outline" 
+      placeholder="Autor coctel" 
+      [(ngModel)]="cocktailAuthor" 
+      name="cocktailAuthor" 
+      required>
+    </ion-input>
+    <div *ngIf="cocktailAuthor && cocktailAuthor.length === 0" class="error-message">El autor del cóctel es obligatorio.</div><br>
+
+    <!-- Selector de ingredientes -->
+    <ion-item (click)="openSelector(selector)">
+      <ion-label>Ingredientes Coctel</ion-label>
+      <ion-select 
+        #selector 
+        style="pointer-events: none" 
+        [interfaceOptions]="customAlertOptions" 
+        multiple="true" 
+        [(ngModel)]="selectedIngredients" 
+        name="selectedIngredients" 
+        required>
+        <ion-select-option *ngFor="let option of ingredients" [value]="option">{{ option }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="selectedIngredients?.length === 0" class="error-message">Selecciona al menos un ingrediente.</div><br>
+
+    <!-- Selector de nivel de alcohol -->
+    <ion-item>
+      <ion-label>Nivel de alcohol</ion-label>
+      <ion-select [(ngModel)]="alcoholLevel" name="alcoholLevel" required>
+        <ion-select-option value="sinAlcohol">Sin alcohol</ion-select-option>
+        <ion-select-option value="bajo">Bajo</ion-select-option>
+        <ion-select-option value="medio">Medio</ion-select-option>
+        <ion-select-option value="alto">Alto</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div *ngIf="!alcoholLevel" class="error-message">Selecciona un nivel de alcohol.</div><br>
+
+    <ion-button expand="block" type="submit" [disabled]="cocktailForm.invalid">Agregar</ion-button>
+  </form>
+</ion-content>

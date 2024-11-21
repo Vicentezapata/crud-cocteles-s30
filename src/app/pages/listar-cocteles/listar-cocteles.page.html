@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">listar-cocteles</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+   <!-- Barra de búsqueda -->
+   <ion-toolbar>
+    <ion-searchbar
+      [(ngModel)]="searchTerm"
+      placeholder="Buscar por ingrediente"
+      (ionInput)="onSearch()"
+    ></ion-searchbar>
+  </ion-toolbar>
+
+  
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Cocteles</ion-card-title>
+      <ion-card-subtitle>Cocteles agregados por ti</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let coctel of cocteles;let i = index">
+          <ion-thumbnail slot="start">
+            <img alt="Silhouette of mountains" src={{coctel.imagenUrl}} />
+          </ion-thumbnail>
+          <ion-label>{{coctel.nombre}}</ion-label>
+          <ion-button color="danger" slot="end" (click)="eliminarCoctel(i)" expand="block"  shape="round">
+            Eliminar
+          </ion-button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="goToRandom()">
+      <ion-icon name="wine-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="goToCreate()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,20 @@
+<ion-header [translucent]="true">
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="cocktail">
+    <ion-card-header>
+      <ion-card-title>{{ cocktail.strDrink }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-img src="{{ cocktail.strDrinkThumb }}" alt="{{ cocktail.strDrink }}"></ion-img>
+      <br>
+      <p>{{ cocktail.strInstructions }}</p>
+    </ion-card-content>
+  </ion-card>
+  <ion-fab vertical="bottom" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="goToListar()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
