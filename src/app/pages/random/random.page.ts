@@ -46,7 +46,7 @@ export class RandomPage implements OnInit {
   async startShakeDetection() {
     await Motion.addListener('accel', async (event)=>{
       console.log('TEST MOTION')
-      const nivel = -1
+      const nivel = 0
       if(
         Math.abs(event.acceleration.x) > nivel &&
         Math.abs(event.acceleration.y) > nivel &&
