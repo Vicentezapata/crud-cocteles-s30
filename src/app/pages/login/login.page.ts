@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup,FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import {Router} from '@angular/router';
+import {StorageService} from '../../service/storage.service';
+
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, 
   IonCardSubtitle, IonCardContent, IonInput, IonButton, IonToggle, IonInputPasswordToggle, 
@@ -25,7 +27,7 @@ export class LoginPage implements OnInit {
 
   form!:FormGroup;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private storage: StorageService) { }
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -42,13 +44,18 @@ export class LoginPage implements OnInit {
   goToRegister() {
     this.router.navigate(['/register']); // Redirige a la ruta '/register' para el registro de usuarios
   }
-  validar(){
+  async validar(){
     if(this.form.invalid){
       //QUE PASA SI EL FORMULARIO ES INVALIDO
       this.form.markAllAsTouched()
       return
     }
-    this.router.navigate(['/listar-cocteles']);
+    const isValid = await this.storage.loginUser(this.form.value.email, this.form.value.password)
+    if(isValid){
+      this.router.navigate(['/listar-cocteles']);
+    }else{
+      console.log('Usuario o contraseña incorrecta');
+    }
   }
 
 }

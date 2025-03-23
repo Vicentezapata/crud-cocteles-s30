@@ -101,7 +101,7 @@
 
             <!-- Botón para enviar el formulario -->
             <!-- El botón está deshabilitado si el formulario es inválido (loginForm.invalid) o si las contraseñas no coinciden -->
-            <ion-button expand="block" [disabled]="loginForm.invalid || confirmPassword !== password" (click)="goToLogin()">Registrarme</ion-button>
+            <ion-button expand="block" [disabled]="loginForm.invalid || confirmPassword !== password" (click)="register()">Registrarme</ion-button>
           </form>
         </ion-card-content>
       </ion-card>

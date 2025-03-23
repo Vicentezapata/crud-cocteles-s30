@@ -33,6 +33,8 @@
     "@capacitor/motion": "^6.0.1",
     "@capacitor/status-bar": "6.0.1",
     "@ionic/angular": "^8.0.0",
+    "@ionic/storage": "^4.0.0",
+    "@ionic/storage-angular": "^4.0.0",
     "globalthis": "^1.0.4",
     "ionicons": "^7.2.1",
     "rxjs": "~7.8.0",
